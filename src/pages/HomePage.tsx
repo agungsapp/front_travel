@@ -1,37 +1,23 @@
-import DiSekitar from "../components/DiSekitar";
-import Explorasi from "../components/Explorasi";
+import { useState } from "react";
+import PopularDestinations from "../components/PopularDestinations";
+import ExploreCategories from "../components/ExploreCategories";
 
 const HomePage = () => {
-    return (
-        <div className="p-4 pb-72">
-            <div className="h-full">
-                <label className="input">
-                    <svg
-                        className="h-full opacity-50"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                    >
-                        <g
-                            strokeLinejoin="round"
-                            strokeLinecap="round"
-                            strokeWidth="2.5"
-                            fill="none"
-                            stroke="currentColor"
-                        >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input
-                        type="search"
-                        className="grow"
-                        placeholder="Search"
-                    />
-                </label>
-            </div>
+    const [searchQuery, setSearchQuery] = useState<string>("");
 
-            <DiSekitar />
-            <Explorasi />
+    return (
+        <div className="min-h-screen bg-base-100 p-4">
+            <div className="mb-6">
+                <input
+                    type="text"
+                    placeholder="Cari destinasi atau kategori..."
+                    className="input input-primary w-full max-w-md"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
+            <PopularDestinations />
+            <ExploreCategories />
         </div>
     );
 };

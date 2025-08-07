@@ -1,7 +1,20 @@
+import { useNavigate, useLocation } from "react-router-dom";
+
 const Dock = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Tentukan rute aktif untuk menentukan tab yang aktif
+    const isActive = (path: string) => location.pathname === path;
+
     return (
-        <div className="dock bg-primary-600 text-white">
-            <button className="dock-active">
+        <div className="dock z-[9999] bg-primary-600 max-w-xl mx-auto text-white fixed bottom-0 left-0 right-0 flex justify-around items-center p-2">
+            <button
+                className={`flex flex-col items-center ${
+                    isActive("/") ? "dock-active" : ""
+                }`}
+                onClick={() => navigate("/")}
+            >
                 <svg
                     className="size-[1.2em]"
                     xmlns="http://www.w3.org/2000/svg"
@@ -40,10 +53,15 @@ const Dock = () => {
                         ></line>
                     </g>
                 </svg>
-                <span className="dock-label">Home</span>
+                <span className="dock-label text-xs">Home</span>
             </button>
 
-            <button>
+            <button
+                className={`flex flex-col items-center ${
+                    isActive("/explore") ? "dock-active" : ""
+                }`}
+                onClick={() => navigate("/explore")}
+            >
                 <svg
                     className="size-[1.2em]"
                     xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +94,104 @@ const Dock = () => {
                         ></rect>
                     </g>
                 </svg>
-                <span className="dock-label">Inbox</span>
+                <span className="dock-label text-xs">Explore</span>
             </button>
 
-            <button>
+            <button
+                className={`flex flex-col items-center ${
+                    isActive("/maps") ? "dock-active" : ""
+                }`}
+                onClick={() => navigate("/maps")}
+            >
+                <svg
+                    className="size-[1.2em]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                >
+                    <g
+                        fill="currentColor"
+                        strokeLinejoin="miter"
+                        strokeLinecap="butt"
+                    >
+                        <polyline
+                            points="3 14 9 14 9 17 15 17 15 14 21 14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-miterlimit="10"
+                            strokeWidth="2"
+                        ></polyline>
+                        <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="2"
+                            ry="2"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="square"
+                            stroke-miterlimit="10"
+                            strokeWidth="2"
+                        ></rect>
+                    </g>
+                </svg>
+                <span className="dock-label text-xs">Maps</span>
+            </button>
+
+
+
+
+
+            <button
+                className={`flex flex-col items-center ${
+                    isActive("/maps") ? "dock-active" : ""
+                }`}
+                onClick={() => navigate("/maps")}
+            >
+                <svg
+                    className="size-[1.2em]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                >
+                    <g
+                        fill="currentColor"
+                        strokeLinejoin="miter"
+                        strokeLinecap="butt"
+                    >
+                        <polyline
+                            points="3 14 9 14 9 17 15 17 15 14 21 14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-miterlimit="10"
+                            strokeWidth="2"
+                        ></polyline>
+                        <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="2"
+                            ry="2"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="square"
+                            stroke-miterlimit="10"
+                            strokeWidth="2"
+                        ></rect>
+                    </g>
+                </svg>
+                <span className="dock-label text-xs">Hotel</span>
+            </button>
+
+
+
+
+            <button
+                className={`flex flex-col items-center ${
+                    isActive("/settings") ? "dock-active" : ""
+                }`}
+                onClick={() => navigate("/settings")}
+            >
                 <svg
                     className="size-[1.2em]"
                     xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +222,7 @@ const Dock = () => {
                         ></path>
                     </g>
                 </svg>
-                <span className="dock-label">Settings</span>
+                <span className="dock-label text-xs">Settings</span>
             </button>
         </div>
     );
