@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchDestinations } from "../utils/apiClient";
+import { fetchTopDestinations } from "../utils/apiClient";
 
 interface Category {
     id: number;
@@ -49,7 +49,7 @@ const PopularDestinations = () => {
         const getDestinations = async () => {
             try {
                 setLoading(true);
-                const data = await fetchDestinations();
+                const data = await fetchTopDestinations();
                 setDestinations(data);
             } catch {
                 setError("Failed to fetch destinations");
