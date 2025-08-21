@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchDestinations } from "../utils/apiClient";
+import { fetchTopDestinations } from "../utils/apiClient";
 
 interface Category {
     id: number;
@@ -49,7 +49,7 @@ const PopularDestinations = () => {
         const getDestinations = async () => {
             try {
                 setLoading(true);
-                const data = await fetchDestinations();
+                const data = await fetchTopDestinations();
                 setDestinations(data);
             } catch {
                 setError("Failed to fetch destinations");
@@ -110,7 +110,7 @@ const PopularDestinations = () => {
                             >
                                 {dest.kategori?.nama || "Tidak diketahui"}
                             </div>
-                            <div className="card-actions justify-end mt-2">
+                            <div className="card-actions justify-end mt-auto">
                                 <Link
                                     to={`/detail/${dest.id}`}
                                     className="btn btn-primary btn-sm"

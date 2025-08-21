@@ -96,6 +96,15 @@ export const fetchCategories = async () => {
 };
 
 // Fungsi untuk fetch destinasi
+export const fetchTopDestinations = async () => {
+    try {
+        const response = await apiClient.get("/api/top-wisata");
+        return response.data.wisata;
+    } catch (error) {
+        console.error("Error fetching destinations:", error);
+        throw error;
+    }
+};
 export const fetchDestinations = async () => {
     try {
         const response = await apiClient.get("/api/wisata");

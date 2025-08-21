@@ -35,8 +35,8 @@ const ExploreCategories = () => {
         return (
             <div>
                 <h3 className="text-2xl font-bold mb-4">Jelajahi Kategori</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[...Array(4)].map((_, idx) => (
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    {[...Array(5)].map((_, idx) => (
                         <div
                             key={idx}
                             className="relative rounded-lg overflow-hidden shadow-md animate-pulse bg-gray-200 h-36"
@@ -56,7 +56,7 @@ const ExploreCategories = () => {
     return (
         <div>
             <h3 className="text-2xl font-bold mb-4">Jelajahi Kategori</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {categories.map((category) => (
                     <div
                         key={category.id}
