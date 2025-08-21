@@ -32,6 +32,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>(""); // Filter kategori
 
   useEffect(() => {
     const getCategory = async () => {
@@ -163,41 +164,161 @@ const HomePage = () => {
   const displayDestinations = wisata.length > 0 ? wisata : allDestinations;
   const displayCategories = categories.length > 0 ? categories : exploreCategories;
 
-  // Filter destinasi berdasarkan pencarian
-  const filteredDestinations = displayDestinations.filter(
+  // Filter destinasi berdasarkan kategori yang dipilih
+  const categoryFilteredDestinations = selectedCategory
+    ? displayDestinations.filter(dest => 
+        dest.kategori.nama.toLowerCase() === selectedCategory.toLowerCase()
+      )
+    : displayDestinations;
+
+  // Filter destinasi berdasarkan pencarian (dari hasil filter kategori)
+  const filteredDestinations = categoryFilteredDestinations.filter(
     (dest) =>
       dest.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      dest.kategori.nama.toLowerCase().includes(searchQuery.toLowerCase())
+      dest.deskripsi.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      dest.alamat.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Reset search ketika kategori berubah
+  const handleCategoryChange = (categoryName: string) => {
+    setSelectedCategory(categoryName);
+    setSearchQuery(""); // Reset search query ketika kategori berubah
+  };
+
+  // Clear filter function
+  const clearFilters = () => {
+    setSelectedCategory("");
+    setSearchQuery("");
+  };
+
   if (loading) {
-    return <div className="min-h-screen bg-base-100 p-4">Memuat...</div>;
+    return (
+      <div className="min-h-screen bg-base-100 p-4 flex items-center justify-center">
+        <div className="loading loading-spinner loading-lg"></div>
+        <span className="ml-2">Memuat...</span>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="min-h-screen bg-base-100 p-4">Error: {error}</div>;
+    return (
+      <div className="min-h-screen bg-base-100 p-4 flex items-center justify-center">
+        <div className="alert alert-error">
+          <span>Error: {error}</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-base-100 p-4">
-      {/* Pencarian */}
+      {/* Filter dan Pencarian */}
       <div className="mb-6">
-        <input
-          type="text"
-          placeholder="Cari destinasi atau kategori..."
-          className="input input-primary w-full max-w-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="flex flex-col lg:flex-row gap-4">
+          {/* Filter Kategori */}
+          <div className="flex-1">
+            <label className="label">
+              <span className="label-text font-semibold">Filter Kategori</span>
+            </label>
+            <select
+              className="select select-primary w-full shadow-md focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+              value={selectedCategory}
+              onChange={(e) => handleCategoryChange(e.target.value)}
+            >
+              <option value="">Semua Kategori</option>
+              {displayCategories.map((category) => (
+                <option key={category.id} value={category.nama}>
+                  {category.nama}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Search */}
+          <div className="flex-2">
+            <label className="label">
+              <span className="label-text font-semibold">Pencarian</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Cari destinasi, deskripsi, atau alamat..."
+              className="input input-primary w-full shadow-md focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          {/* Clear Filter Button */}
+          {(selectedCategory || searchQuery) && (
+            <div className="flex items-end">
+              <button
+                onClick={clearFilters}
+                className="btn btn-outline btn-secondary"
+              >
+                Clear Filter
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Active Filters Display */}
+        {(selectedCategory || searchQuery) && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <span className="text-sm font-medium">Filter aktif:</span>
+            {selectedCategory && (
+              <div className="badge badge-primary gap-2">
+                Kategori: {selectedCategory}
+                <button
+                  onClick={() => setSelectedCategory("")}
+                  className="btn btn-ghost btn-xs"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            {searchQuery && (
+              <div className="badge badge-secondary gap-2">
+                Pencarian: "{searchQuery}"
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="btn btn-ghost btn-xs"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Daftar Destinasi Populer */}
       <div className="mb-8">
         <h3 className="text-3xl font-bold mb-6 text-slate-900">
           Destinasi Populer
+          {(selectedCategory || searchQuery) && (
+            <span className="text-lg font-normal text-gray-600 ml-2">
+              ({filteredDestinations.length} hasil ditemukan)
+            </span>
+          )}
         </h3>
         {filteredDestinations.length === 0 ? (
-          <p>Tidak ada destinasi ditemukan.</p>
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🔍</div>
+            <p className="text-xl text-gray-600 mb-2">
+              Tidak ada destinasi ditemukan
+            </p>
+            <p className="text-gray-500">
+              Coba ubah filter atau kata kunci pencarian
+            </p>
+            {(selectedCategory || searchQuery) && (
+              <button
+                onClick={clearFilters}
+                className="btn btn-primary mt-4"
+              >
+                Reset Filter
+              </button>
+            )}
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
             {filteredDestinations.map((dest) => (
@@ -213,12 +334,19 @@ const HomePage = () => {
                       className="w-full h-56 object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                      <h4 className="text-white font-semibold text-xl drop-shadow-lg">
-                        {dest.nama}
-                      </h4>
-                      <p className="text-white text-sm bg-opacity-75 bg-black px-2 rounded-full">
-                        {dest.kategori.nama}
-                      </p>
+                      <div className="flex-1">
+                        <h4 className="text-white font-semibold text-xl drop-shadow-lg">
+                          {dest.nama}
+                        </h4>
+                        <p className="text-white/80 text-sm mt-1 line-clamp-2">
+                          {dest.alamat}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-white text-sm bg-black/50 px-2 py-1 rounded-full">
+                          {dest.kategori.nama}
+                        </span>
+                      </div>
                     </div>
                   </figure>
                 </Link>
@@ -235,10 +363,14 @@ const HomePage = () => {
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {displayCategories.map((category) => (
-            <Link
+            <div
               key={category.id}
-              to={`/explore?category=${category.nama.toLowerCase()}`}
-              className="card compact bg-base-200 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden transform hover:scale-105"
+              onClick={() => handleCategoryChange(category.nama)}
+              className={`card compact shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden transform hover:scale-105 cursor-pointer ${
+                selectedCategory === category.nama 
+                  ? 'bg-primary text-primary-content ring-2 ring-primary' 
+                  : 'bg-base-200'
+              }`}
             >
               <figure>
                 <img
@@ -248,11 +380,15 @@ const HomePage = () => {
                 />
               </figure>
               <div className="card-body p-2 text-center">
-                <h4 className="text-lg font-medium text-primary">
+                <h4 className={`text-lg font-medium ${
+                  selectedCategory === category.nama 
+                    ? 'text-primary-content' 
+                    : 'text-primary'
+                }`}>
                   {category.nama}
                 </h4>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

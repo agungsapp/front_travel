@@ -110,7 +110,7 @@ const PopularDestinations = () => {
                             >
                                 {dest.kategori?.nama || "Tidak diketahui"}
                             </div>
-                            <div className="card-actions justify-end mt-2">
+                            <div className="card-actions justify-end mt-auto">
                                 <Link
                                     to={`/detail/${dest.id}`}
                                     className="btn btn-primary btn-sm"

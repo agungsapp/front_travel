@@ -17,7 +17,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/ProfilePage";
-
+import InstallPromptPopup from "./components/InstallPromptPopup";
 
 function AppContent() {
     const location = useLocation();
@@ -73,6 +73,7 @@ function AppContent() {
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             {!hideNavAndDock && <Dock />}
+            {!hideNavAndDock && <InstallPromptPopup />}
         </div>
     );
 }
