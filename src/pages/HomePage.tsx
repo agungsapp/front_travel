@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PopularDestinations from "../components/PopularDestinations";
 import ExploreCategories from "../components/ExploreCategories";
+import Favorit from "../components/Favorit";
 
 const HomePage = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -18,6 +19,7 @@ const HomePage = () => {
             </div>
             <PopularDestinations />
             <ExploreCategories />
+            <Favorit />
         </div>
     );
 };

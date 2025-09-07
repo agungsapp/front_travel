@@ -18,6 +18,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProfilePage from "./pages/ProfilePage";
 import InstallPromptPopup from "./components/InstallPromptPopup";
+import SettingPage from "./pages/SettingPage";
 
 function AppContent() {
     const location = useLocation();
@@ -67,6 +68,14 @@ function AppContent() {
                     element={
                         <ProtectedRoute>
                             <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/settings"
+                    element={
+                        <ProtectedRoute>
+                            <SettingPage />
                         </ProtectedRoute>
                     }
                 />
