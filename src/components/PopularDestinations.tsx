@@ -64,7 +64,7 @@ const PopularDestinations = () => {
     if (loading) {
         return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {[...Array(6)].map((_, i) => (
+                {[...Array(3)].map((_, i) => (
                     <div
                         key={i}
                         className="card bg-base-200 shadow-md rounded-lg overflow-hidden animate-pulse"
@@ -104,9 +104,8 @@ const PopularDestinations = () => {
                         <div className="card-body p-4">
                             <h2 className="card-title text-lg font-semibold">{dest.nama}</h2>
                             <div
-                                className={`badge capitalize text-white ${
-                                    categoryColors[dest.kategori_id] || defaultColor
-                                }`}
+                                className={`badge capitalize text-white ${categoryColors[dest.kategori_id] || defaultColor
+                                    }`}
                             >
                                 {dest.kategori?.nama || "Tidak diketahui"}
                             </div>

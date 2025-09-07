@@ -77,7 +77,7 @@ export const logout = async () => {
 export const fetchUser = async () => {
     try {
         const response = await apiClient.get("/api/user");
-        return response.data.user;
+        return response.data;
     } catch (error) {
         console.error("Error fetching user:", error);
         throw error;
@@ -131,6 +131,42 @@ export const addToFavorites = async (destinationId: number) => {
         return response.data;
     } catch (error) {
         console.error("Error adding to favorites:", error);
+        throw error;
+    }
+};
+export const removeFromFavorites = async (destinationId: number) => {
+    try {
+        const response = await apiClient.delete(`/api/wisata/${destinationId}/favorit`);
+        return response.data;
+    } catch (error) {
+        console.error("Error removing from favorites:", error);
+        throw error;
+    }
+};
+
+export const fetchWisataFavorites = async () => {
+    try {
+        const response = await apiClient.get("/api/wisata/favorit");
+        return response.data.wisata;
+    } catch (error) {
+        console.error("Error fetching destinations:", error);
+        throw error;
+    }
+};
+
+
+export const updateProfile = async (payload: {
+    name?: string;
+    email?: string;
+    password?: string;
+    new_password?: string;
+    new_password_confirmation?: string;
+}) => {
+    try {
+        const response = await apiClient.put("/api/update-profile", payload);
+        return response.data;
+    } catch (error: any) {
+        console.error("Error updating profile:", error.response?.data || error.message);
         throw error;
     }
 };

@@ -166,9 +166,9 @@ const HomePage = () => {
 
   // Filter destinasi berdasarkan kategori yang dipilih
   const categoryFilteredDestinations = selectedCategory
-    ? displayDestinations.filter(dest => 
-        dest.kategori.nama.toLowerCase() === selectedCategory.toLowerCase()
-      )
+    ? displayDestinations.filter(dest =>
+      dest.kategori.nama.toLowerCase() === selectedCategory.toLowerCase()
+    )
     : displayDestinations;
 
   // Filter destinasi berdasarkan pencarian (dari hasil filter kategori)
@@ -361,16 +361,15 @@ const HomePage = () => {
         <h3 className="text-3xl font-extrabold mb-6 text-accent">
           Jelajahi Kategori
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {displayCategories.map((category) => (
             <div
               key={category.id}
               onClick={() => handleCategoryChange(category.nama)}
-              className={`card compact shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden transform hover:scale-105 cursor-pointer ${
-                selectedCategory === category.nama 
-                  ? 'bg-primary text-primary-content ring-2 ring-primary' 
+              className={`card compact shadow-md hover:shadow-lg transition-all duration-300 rounded-xl overflow-hidden transform hover:scale-105 cursor-pointer ${selectedCategory === category.nama
+                  ? 'bg-primary text-primary-content ring-2 ring-primary'
                   : 'bg-base-200'
-              }`}
+                }`}
             >
               <figure>
                 <img
@@ -380,11 +379,10 @@ const HomePage = () => {
                 />
               </figure>
               <div className="card-body p-2 text-center">
-                <h4 className={`text-lg font-medium ${
-                  selectedCategory === category.nama 
-                    ? 'text-primary-content' 
+                <h4 className={`text-lg font-medium ${selectedCategory === category.nama
+                    ? 'text-primary-content'
                     : 'text-primary'
-                }`}>
+                  }`}>
                   {category.nama}
                 </h4>
               </div>

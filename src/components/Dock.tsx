@@ -10,9 +10,8 @@ const Dock = () => {
     return (
         <div className="dock z-[9999] bg-primary-600 max-w-xl mx-auto text-white fixed bottom-0 left-0 right-0 flex justify-around items-center p-2">
             <button
-                className={`flex flex-col items-center ${
-                    isActive("/") ? "dock-active" : ""
-                }`}
+                className={`flex flex-col items-center ${isActive("/") ? "dock-active" : ""
+                    }`}
                 onClick={() => navigate("/")}
             >
                 <svg
@@ -57,9 +56,8 @@ const Dock = () => {
             </button>
 
             <button
-                className={`flex flex-col items-center ${
-                    isActive("/explore") ? "dock-active" : ""
-                }`}
+                className={`flex flex-col items-center ${isActive("/explore") ? "dock-active" : ""
+                    }`}
                 onClick={() => navigate("/explore")}
             >
                 <svg
@@ -98,9 +96,8 @@ const Dock = () => {
             </button>
 
             <button
-                className={`flex flex-col items-center ${
-                    isActive("/maps") ? "dock-active" : ""
-                }`}
+                className={`flex flex-col items-center ${isActive("/maps") ? "dock-active" : ""
+                    }`}
                 onClick={() => navigate("/maps")}
             >
                 <svg
@@ -140,9 +137,8 @@ const Dock = () => {
 
 
             <button
-                className={`flex flex-col items-center ${
-                    isActive("/settings") ? "dock-active" : ""
-                }`}
+                className={`flex flex-col items-center ${isActive("/settings") ? "dock-active" : ""
+                    }`}
                 onClick={() => navigate("/settings")}
             >
                 <svg
