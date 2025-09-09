@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Ambil base URL dari environment variable dengan fallback
-const BASE_URL = import.meta.env.VITE_APP_API_BASE_URL || "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_APP_API_BASE_URL || "https://admin.lampunggo.my.id";
 
 // Inisialisasi instance axios
 const apiClient = axios.create({
