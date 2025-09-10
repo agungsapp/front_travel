@@ -46,7 +46,7 @@ const Navbar = () => {
                         <li>
                             <Link to="/profile" className="flex items-center gap-2">
                                 <span className="material-icons text-base text-blue-900">Profil</span>
-                                
+
                             </Link>
                         </li>
                         <li>
